@@ -1,9 +1,9 @@
-name: Deploy Telegram Quiz Bot
+name: Deploy Telegram Support Bot
 
 on:
   push:
     paths:
-      - 'bot/quiz/dist/**'
+      - 'support/dist/**'
     branches:
       - main
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: bot/quiz
+        working-directory: support
 
     steps:
       - name: Checkout code
@@ -48,5 +48,5 @@ jobs:
       - name: Deploy to Lambda
         run: |
           aws lambda update-function-code \
-            --function-name words-quiz_bot \
+            --function-name words-support_bot \
             --zip-file fileb://function.zip
