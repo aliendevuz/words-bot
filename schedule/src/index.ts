@@ -27,7 +27,23 @@ export const handler = async () => {
     day: 'numeric',
   });
 
-  const message = `📅 Har kunlik eslatma!\nBugungi sana: ${today}`;
+  let firstWord = 'so`z topilmadi';
+
+  try {
+    const res = await fetch('https://assets.4000.uz/assets/en/essential/words.json');
+    if (!res.ok) {
+      console.error('Fetch xatosi:', res.status, res.statusText);
+    } else {
+      const json: any = await res.json();
+      // JSON tarkibidan 0 -> 0 -> index 0 -> w olish
+      firstWord = json?.['0']?.['0']?.[0]?.w ?? firstWord;
+      console.log('Tanlangan so`z:', firstWord);
+    }
+  } catch (err: any) {
+    console.error('Fetch yoki JSON parse xatosi:', err?.message ?? err);
+  }
+
+  const message = `📅 Har kunlik eslatma!\nBugungi sana: ${today}\n\nSo'z: ${firstWord}`;
 
   try {
     await bot.telegram.sendMessage(chatID, message);
