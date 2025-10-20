@@ -29,7 +29,7 @@ export const handler = async () => {
         else {
             const json = await res.json();
             // JSON tarkibidan 0 -> 0 -> index 0 -> w olish
-            firstWord = json?.['0']?.['0']?.[0].w || firstWord;
+            firstWord = json?.['0']?.['0']?.[0].w;
             console.log('Tanlangan so`z:', firstWord);
         }
     }
